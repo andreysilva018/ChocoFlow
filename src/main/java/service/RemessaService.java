@@ -1,0 +1,23 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package service;
+
+/**
+ *
+ * @author Windows
+ */
+public class RemessaService {
+    public void simularRemessa(){}
+    
+    public void calcularInsumoNecessarios(){}
+    
+    public void verificarFaltadeInsumos(){}
+    
+    public void calcularCustoTotal(){}
+    
+    public void calcularPrecoVenda(){}
+    
+    public void produzirRemessa(){}
+}

@@ -1,0 +1,20 @@
+# Maven
+target/
+
+# NetBeans
+nbproject/private/
+nbbuild/
+dist/
+
+# Logs
+*.log
+
+# Arquivos temporários
+*.class
+
+# Banco de dados SQLite local
+trufas.db
+
+# Configurações do sistema
+.DS_Store
+Thumbs.db
