@@ -77,6 +77,7 @@ public class CompraRepository {
         stmt.close();
         for(ItemCompra item : compra.getItens()){
             SalvarItensdaCompra(compraId, item);
+            
             atualizarInsumo(item);
         }
     }
@@ -97,7 +98,7 @@ public class CompraRepository {
     }
     
     public void atualizarInsumo(ItemCompra item) throws SQLException{
-        String sql = "UPDATE insumo SET valor_ultima_compra=?, quantidade_estoque=? WHERE id=?";
+        String sql = "UPDATE insumo SET valor_ultima_compra=?, quantidade_estoque = quantidade_estoque + ? WHERE id=?";
         
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setDouble(1, item.getValorUnitario());

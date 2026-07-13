@@ -20,7 +20,7 @@ public class CompraService {
     CompraRepository repository = new CompraRepository();
     
     public void registrarCompra(Compra compra) throws Exception{
-        double valorTotal = 0;
+        
         repository.registrarCompra(compra);
     }
     
