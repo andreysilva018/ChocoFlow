@@ -16,16 +16,18 @@ public class ItemCompra {
     private Insumo insumo;
     private double qtd;
     private double valorUnitario;
+    private double valorTotalItem;
 
     public ItemCompra() {
     }
 
-    public ItemCompra(int id, Compra compra, Insumo insumo, double qtd, double valorUnitario) {
+    public ItemCompra(int id, Compra compra, Insumo insumo, double qtd, double valorUnitario, double valorTotalItem) {
         this.id = id;
         this.compra = compra;
         this.insumo = insumo;
         this.qtd = qtd;
         this.valorUnitario = valorUnitario;
+        this.valorTotalItem = valorTotalItem;
     }
 
     public int getId() {
@@ -67,6 +69,12 @@ public class ItemCompra {
     public void setValorUnitario(double valorUnitario) {
         this.valorUnitario = valorUnitario;
     }
-    
-    
+
+    public double getValorTotalItem() {
+        return valorTotalItem;
+    }
+
+    public void setValorTotalItem(double valorTotalItem) {
+        this.valorTotalItem = valorTotalItem;
+    }
 }

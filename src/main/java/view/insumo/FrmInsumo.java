@@ -31,7 +31,7 @@ public class FrmInsumo extends javax.swing.JFrame {
         cbxUnidade.removeAllItems();
         
         for(UnidadeMedida unidade : UnidadeMedida.values()){
-            cbxUnidade.addItem(unidade.toString());
+            cbxUnidade.addItem(unidade);
         }
     }
     public void CarregarInsumos() throws Exception{ 
@@ -119,7 +119,6 @@ public class FrmInsumo extends javax.swing.JFrame {
 
         jLabel2.setText("Unidade de Medida:");
 
-        cbxUnidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxUnidade.setEnabled(false);
         cbxUnidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -431,7 +430,7 @@ public class FrmInsumo extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
             if(txtDescricao.getText().isEmpty() || txtEstoqueMin.getText().isEmpty() || cbxUnidade.getSelectedItem() == null ){
-                JOptionPane.showMessageDialog(null, "Certifique que todos os campos estão preenchidos!");
+                JOptionPane.showMessageDialog(null, "Certifique-se que todos os campos estão preenchidos!");
             } else {
                 String descricao = txtDescricao.getText();
                 String unidadeSelecionada = cbxUnidade.getSelectedItem().toString();
@@ -473,6 +472,9 @@ public class FrmInsumo extends javax.swing.JFrame {
             txtEstoqueMin.setText(jTableInsumos.getValueAt(jTableInsumos.getSelectedRow(), 4).toString());
             txtValorCompra.setText(jTableInsumos.getValueAt(jTableInsumos.getSelectedRow(), 5).toString());
             AtivarCampos();
+            if(!txtCodigo.getText().isEmpty()){
+                btnSalvar.setText("Alterar");
+            }
         }
     }//GEN-LAST:event_jTableInsumosMouseClicked
 
@@ -555,7 +557,7 @@ public class FrmInsumo extends javax.swing.JFrame {
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnNovoConsulta;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JComboBox<String> cbxUnidade;
+    private javax.swing.JComboBox<UnidadeMedida> cbxUnidade;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

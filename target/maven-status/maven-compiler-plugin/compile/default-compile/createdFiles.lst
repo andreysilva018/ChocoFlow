@@ -5,12 +5,16 @@ model\financeiro\MovimentacaoCaixa.class
 repository\MovimentacaoCaixaRepository.class
 service\CompraService.class
 model\producao\ItemReceita.class
+view\compra\FrmCompra$2.class
+view\compra\FrmCompra.class
 view\insumo\FrmInsumo$10.class
 view\insumo\FrmInsumo$9.class
 service\TrufaService.class
 service\VendaService.class
+util\DateLabelFormatter.class
 view\insumo\FrmInsumo$4.class
 enums\FormaPagamento.class
+view\compra\FrmCompra$3.class
 view\insumo\FrmInsumo$1.class
 view\insumo\FrmInsumo$8.class
 repository\InsumoRepository.class
@@ -34,7 +38,9 @@ view\insumo\FrmInsumo$3.class
 com\chocoflow\ChocoFlow.class
 util\ConnectionFactory.class
 view\insumo\FrmInsumo$7.class
+view\compra\FrmCompra$4.class
 enums\TipoMovimentacao.class
+view\compra\FrmCompra$1.class
 view\insumo\FrmInsumo$2.class
 repository\RemessaRepository.class
 util\LimparTela.class

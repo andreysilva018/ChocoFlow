@@ -27,6 +27,11 @@ public class Compra {
         this.itens = itens;
     }
 
+    public Compra(LocalDate dataCompra, double valorTotal) {
+        this.dataCompra = dataCompra;
+        this.valorTotal = valorTotal;
+    }
+
     public int getId() {
         return id;
     }

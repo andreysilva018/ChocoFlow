@@ -26,6 +26,26 @@ public class Database {
                     ativo BOOLEAN NOT NULL DEFAULT 1
                 );
             """);
+            stmt.execute("""
+                CREATE TABLE IF NOT EXISTS compra(
+                         id INTEGER PRIMARY KEY AUTOINCREMENT,
+                         date_compra TEXT NOT NULL,
+                         valor_total REAL NOT NULL
+                );
+            """);
+            stmt.execute("""
+                CREATE TABLE IF NOT EXISTS item_compra(
+                         id INTEGER PRIMARY KEY AUTOINCREMENT,
+                         compra_id INTEGER NOT NULL,
+                         insumo_id INTEGER NOT NULL,
+                         quantidade REAL NOT NULL,
+                         valor_unitario REAL NOT NULL,
+                         valor_total_item REAQL NOT NULL,
+                         
+                         FOREIGN KEY (compra_id) REFERENCES compra(id),
+                         FOREIGN KEY (insumo_id) REFERENCES insumo(id)                         
+                );
+            """);
         } catch (Exception erro) {
             System.out.println("Erro ao criar bacno de dados");
             erro.printStackTrace();

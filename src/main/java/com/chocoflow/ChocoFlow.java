@@ -8,6 +8,7 @@ import database.Database;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 import util.ConnectionFactory;
+import view.compra.FrmCompra;
 import view.insumo.FrmInsumo;
 
 /**
@@ -32,6 +33,7 @@ public class ChocoFlow {
         
         java.awt.EventQueue.invokeLater(()-> {
             new FrmInsumo().setVisible(true);
+            //new FrmCompra().seVisible(true);
         });
         
         
