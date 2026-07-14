@@ -56,29 +56,37 @@ public class CompraRepository {
         return lista;
     }
     
-    public void registrarCompra(Compra compra) throws Exception{
-        String sql = "INSERT INTO compra(date_compra, valor_total)"
+    public void registrarCompra(Compra compra) throws SQLException {
+        conn.setAutoCommit(false);
+        try {
+            String sql = "INSERT INTO compra(date_compra, valor_total)"
                 + "VALUES(?, ?)";
         
-        PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        stmt.setString(1, compra.getDataCompra().toString());
-        stmt.setDouble(2, compra.getValorTotal());
-        
-        stmt.executeUpdate();
-        
-        ResultSet rs = stmt.getGeneratedKeys();
-        
-        int compraId = 0;
-        
-        if(rs.next()){
-            compraId = rs.getInt(1);
-        }
-        rs.close();        
-        stmt.close();
-        for(ItemCompra item : compra.getItens()){
-            SalvarItensdaCompra(compraId, item);
-            
-            atualizarInsumo(item);
+            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, compra.getDataCompra().toString());
+            stmt.setDouble(2, compra.getValorTotal());
+
+            stmt.executeUpdate();
+
+            ResultSet rs = stmt.getGeneratedKeys();
+
+            int compraId = 0;
+
+            if(rs.next()){
+                compraId = rs.getInt(1);
+            }
+            rs.close();        
+            stmt.close();
+            for(ItemCompra item : compra.getItens()){
+                SalvarItensdaCompra(compraId, item);
+
+                atualizarInsumo(item);
+            }
+            conn.commit();
+        } catch (Exception erro) {
+            conn.rollback();
+        } finally {
+            conn.setAutoCommit(true);
         }
     }
     
@@ -107,5 +115,16 @@ public class CompraRepository {
         
         stmt.executeUpdate();
         stmt.close();
+    }
+    
+    public void InativarCompra(int compraId) throws SQLException{
+        conn.setAutoCommit(false);
+        try {
+            
+        } catch (Exception erro) {
+            conn.rollback();
+        } finally {
+            conn.setAutoCommit(true);
+        }
     }
 }

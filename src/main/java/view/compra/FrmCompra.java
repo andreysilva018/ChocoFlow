@@ -105,6 +105,14 @@ public class FrmCompra extends javax.swing.JFrame {
             jComboBox1.addItem(pagamento);
         }
     }
+    
+    public void limparTelaCompras(){
+        limpar.LimparCampos(jPanel2);
+        itensCompra.clear();
+        DefaultTableModel modelo =  (DefaultTableModel) jTableItems.getModel();
+        modelo.setRowCount(0);
+        txtValorTotal.setText("");
+    }
 
     /**
      * Creates new form FrmCompra
@@ -148,6 +156,7 @@ public class FrmCompra extends javax.swing.JFrame {
         btnSalvarCompra = new javax.swing.JButton();
         btnNovoCompra = new javax.swing.JButton();
         btnAlterarCompra = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         txtValorPago = new javax.swing.JTextField();
         painelDataCompra = new javax.swing.JPanel();
         btnRemoverItem = new javax.swing.JButton();
@@ -229,6 +238,11 @@ public class FrmCompra extends javax.swing.JFrame {
         jLabel1.setText("Forma de pagamento:");
 
         btnCancelarCompra.setText("Cancelar");
+        btnCancelarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarCompraActionPerformed(evt);
+            }
+        });
 
         btnSalvarCompra.setText("Salvar Compra");
         btnSalvarCompra.addActionListener(new java.awt.event.ActionListener() {
@@ -238,8 +252,15 @@ public class FrmCompra extends javax.swing.JFrame {
         });
 
         btnNovoCompra.setText("Novo");
+        btnNovoCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoCompraActionPerformed(evt);
+            }
+        });
 
         btnAlterarCompra.setText("Alterar");
+
+        btnExcluir.setText("Excluir");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -248,16 +269,19 @@ public class FrmCompra extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(68, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnNovoCompra)
-                    .addComponent(btnSalvarCompra))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCancelarCompra)
-                    .addComponent(btnAlterarCompra))
+                    .addComponent(btnExcluir)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnNovoCompra)
+                            .addComponent(btnSalvarCompra))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCancelarCompra)
+                            .addComponent(btnAlterarCompra))))
                 .addGap(26, 26, 26))
         );
 
-        jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAlterarCompra, btnCancelarCompra, btnNovoCompra, btnSalvarCompra});
+        jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAlterarCompra, btnCancelarCompra, btnExcluir, btnNovoCompra, btnSalvarCompra});
 
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,10 +294,12 @@ public class FrmCompra extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvarCompra)
                     .addComponent(btnCancelarCompra))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnExcluir)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
-        jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAlterarCompra, btnCancelarCompra, btnNovoCompra, btnSalvarCompra});
+        jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAlterarCompra, btnCancelarCompra, btnExcluir, btnNovoCompra, btnSalvarCompra});
 
         javax.swing.GroupLayout painelDataCompraLayout = new javax.swing.GroupLayout(painelDataCompra);
         painelDataCompra.setLayout(painelDataCompraLayout);
@@ -519,11 +545,7 @@ public class FrmCompra extends javax.swing.JFrame {
             
             service.registrarCompra(compra);
             JOptionPane.showMessageDialog(this, "Compra registrada com sucesso!");   
-            limpar.LimparCampos(jPanel2);
-            itensCompra.clear();
-            DefaultTableModel modelo =  (DefaultTableModel) jTableItems.getModel();
-            modelo.setRowCount(0);
-            txtValorTotal.setText("");
+            limparTelaCompras();
         } catch (Exception erro) {
             erro.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro para regitsrar a compra - Erro:" + erro.getMessage());
@@ -544,6 +566,15 @@ public class FrmCompra extends javax.swing.JFrame {
             CarregarTabelaItens();
         }
     }//GEN-LAST:event_btnRemoverItemActionPerformed
+
+    private void btnNovoCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoCompraActionPerformed
+       limparTelaCompras();
+    }//GEN-LAST:event_btnNovoCompraActionPerformed
+
+    private void btnCancelarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCompraActionPerformed
+        limparTelaCompras();
+        
+    }//GEN-LAST:event_btnCancelarCompraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -585,6 +616,7 @@ public class FrmCompra extends javax.swing.JFrame {
     private javax.swing.JButton btnAlterarCompra;
     private javax.swing.JButton btnCancelarCompra;
     private javax.swing.JButton btnConsultar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovoCompra;
     private javax.swing.JButton btnRemoverItem;
     private javax.swing.JButton btnSalvarCompra;

@@ -30,7 +30,8 @@ public class Database {
                 CREATE TABLE IF NOT EXISTS compra(
                          id INTEGER PRIMARY KEY AUTOINCREMENT,
                          date_compra TEXT NOT NULL,
-                         valor_total REAL NOT NULL
+                         valor_total REAL NOT NULL,
+                         status BOOLEAN NOT NULL DEFAULT 1
                 );
             """);
             stmt.execute("""

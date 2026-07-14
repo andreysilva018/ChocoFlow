@@ -16,6 +16,7 @@ public class Compra {
     private LocalDate dataCompra;
     private double valorTotal;
     private List<ItemCompra> itens;
+    private boolean ativo;
 
     public Compra() {
     }
@@ -30,6 +31,11 @@ public class Compra {
     public Compra(LocalDate dataCompra, double valorTotal) {
         this.dataCompra = dataCompra;
         this.valorTotal = valorTotal;
+    }
+
+    public Compra(int id, boolean ativo) {
+        this.id = id;
+        this.ativo = ativo;
     }
 
     public int getId() {
@@ -63,6 +69,12 @@ public class Compra {
     public void setItens(List<ItemCompra> itens) {
         this.itens = itens;
     }
-    
-    
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
 }

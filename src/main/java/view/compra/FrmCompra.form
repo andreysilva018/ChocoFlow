@@ -275,13 +275,18 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace pref="68" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="btnNovoCompra" linkSize="6" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnSalvarCompra" linkSize="6" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnCancelarCompra" linkSize="6" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnAlterarCompra" linkSize="6" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnExcluir" linkSize="6" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="btnNovoCompra" linkSize="6" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnSalvarCompra" linkSize="6" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="btnCancelarCompra" linkSize="6" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnAlterarCompra" linkSize="6" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>
@@ -300,7 +305,9 @@
                               <Component id="btnSalvarCompra" linkSize="7" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnCancelarCompra" linkSize="7" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="77" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnExcluir" linkSize="7" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="44" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -310,6 +317,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Cancelar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarCompraActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnSalvarCompra">
                   <Properties>
@@ -323,10 +333,18 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Novo"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoCompraActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnAlterarCompra">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Alterar"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnExcluir">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Excluir"/>
                   </Properties>
                 </Component>
               </SubComponents>
