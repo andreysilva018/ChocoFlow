@@ -55,6 +55,14 @@ public class FrmCompra extends javax.swing.JFrame {
         
     }
     
+    public void definirDataAtual(){
+        LocalDate hoje = LocalDate.now();
+        
+        datePicker.getModel().setDate(hoje.getYear(), hoje.getMonthValue() -1, hoje.getDayOfMonth());
+        
+        datePicker.getModel().setSelected(true);
+    }
+    
     private void CarregarComboInsumos(){
         try {
             List<Insumo> lista = service.MostrarInsumoComboBx();
@@ -103,7 +111,8 @@ public class FrmCompra extends javax.swing.JFrame {
      */
     public FrmCompra() {
         initComponents();
-
+        
+        definirDataAtual();
         carregarCalendario();
         CarregarComboInsumos();
         CarreggarComboFormaPagamento();
@@ -162,6 +171,8 @@ public class FrmCompra extends javax.swing.JFrame {
         jLabel4.setText("Quantidade:");
 
         jLabel5.setText("Valor Pago:");
+
+        txtValorTotal.setEnabled(false);
 
         jLabel6.setText("Valor total da compra:");
 
@@ -509,6 +520,10 @@ public class FrmCompra extends javax.swing.JFrame {
             service.registrarCompra(compra);
             JOptionPane.showMessageDialog(this, "Compra registrada com sucesso!");   
             limpar.LimparCampos(jPanel2);
+            itensCompra.clear();
+            DefaultTableModel modelo =  (DefaultTableModel) jTableItems.getModel();
+            modelo.setRowCount(0);
+            txtValorTotal.setText("");
         } catch (Exception erro) {
             erro.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro para regitsrar a compra - Erro:" + erro.getMessage());

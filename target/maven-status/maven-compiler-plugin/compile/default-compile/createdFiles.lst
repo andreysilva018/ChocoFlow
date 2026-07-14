@@ -24,6 +24,7 @@ repository\CompraRepository.class
 view\insumo\FrmInsumo$11.class
 model\vendas\ItemVenda.class
 service\RemessaService.class
+view\compra\FrmCompra$5.class
 enums\UnidadeMedida.class
 model\producao\Remessa.class
 model\compra\Compra.class
