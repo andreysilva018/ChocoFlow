@@ -4,6 +4,7 @@
  */
 package model.compra;
 
+import enums.StatusCompra;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class Compra {
     private LocalDate dataCompra;
     private double valorTotal;
     private List<ItemCompra> itens;
-    private boolean ativo;
+    private StatusCompra status;
 
     public Compra() {
     }
@@ -33,9 +34,9 @@ public class Compra {
         this.valorTotal = valorTotal;
     }
 
-    public Compra(int id, boolean ativo) {
+    public Compra(int id, StatusCompra status) {
         this.id = id;
-        this.ativo = ativo;
+        this.status = status;
     }
 
     public int getId() {
@@ -70,11 +71,11 @@ public class Compra {
         this.itens = itens;
     }
 
-    public boolean isAtivo() {
-        return ativo;
+    public StatusCompra getStatus() {
+        return status;
     }
 
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
+    public void setStatus(StatusCompra status) {
+        this.status = status;
     }
 }

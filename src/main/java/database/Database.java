@@ -42,6 +42,7 @@ public class Database {
                          quantidade REAL NOT NULL,
                          valor_unitario REAL NOT NULL,
                          valor_total_item REAQL NOT NULL,
+                         status TEXT NOT NULL DEFAULT 'ATIVA',
                          
                          FOREIGN KEY (compra_id) REFERENCES compra(id),
                          FOREIGN KEY (insumo_id) REFERENCES insumo(id)                         

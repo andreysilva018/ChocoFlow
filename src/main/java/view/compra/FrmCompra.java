@@ -261,6 +261,11 @@ public class FrmCompra extends javax.swing.JFrame {
         btnAlterarCompra.setText("Alterar");
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -575,6 +580,14 @@ public class FrmCompra extends javax.swing.JFrame {
         limparTelaCompras();
         
     }//GEN-LAST:event_btnCancelarCompraActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        try {
+            
+        } catch (Exception erro) {
+            
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments

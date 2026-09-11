@@ -20,8 +20,34 @@ public class CompraService {
     CompraRepository repository = new CompraRepository();
     
     public void registrarCompra(Compra compra) throws Exception{
-        
         repository.registrarCompra(compra);
+    }
+    
+    public void validarEstoqueparaCancelamento(List<ItemCompra> itens){
+        for(ItemCompra item : itens){
+            double estoqueAtual = item.getInsumo().getQtdEstoque();
+            
+            double qtdComprada = item.getQtd();
+            
+            if(estoqueAtual < qtdComprada){
+                throw new IllegalStateException(
+                        "Não é possível canceelar a compra. " 
+                        + "O estoque do insumo "
+                        + item.getInsumo().getDescricao()
+                        + "é menor que a quantidade comprada."
+                );
+            }
+        }
+    }
+    
+    public void cancelarCompra(int compraId) throws Exception{
+        if(compraId <= 0){
+            throw new IllegalArgumentException(
+                    "Selecione uma compra válida"
+            );
+        }
+        
+        repository.CancelarCompra(compraId);
     }
     
     public void SalvarItemCompra(){}
