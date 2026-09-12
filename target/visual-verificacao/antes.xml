@@ -1,0 +1,275 @@
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>Microsoft.PowerShell.Commands.FileHashInfo</T>
+      <T>System.Object</T>
+    </TN>
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">8B07814684375830FA99236B29473846ED83057386F9A17F91058C748BDF2262</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\repository\CompraRepository.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="1">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">954C071C48B750B100CA3E9D8F2F09F54270C39193197FE079CBEC0B0646A24F</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\repository\DashboardRepository.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="2">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">AAF34995A4BE4D979942822F459581466ED86787D1E5628A80BF9A7779C96BB4</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\repository\InsumoRepository.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="3">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">65961BA94B29420D7814CE8A3225D69774AB628F91E6CAB0BD6A3B871A4AB66A</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\repository\MovimentacaoCaixaRepository.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="4">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">B48489A16B946D7F43DBB64847C35C935370F32C04CD243309B5DBC1D7DAC350</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\repository\RemessaRepository.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="5">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">AD13BAFC3C86D5E76F0C8B5D561F4013225748068C19FCD55C8BFEF2AECE2B21</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\repository\TrufaRepository.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="6">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">45B84EB3180C985A77F57C712852035588EEABBEA02B0CEADDDCABB2FA997781</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\repository\VendaRepository.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="7">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">D7D781C2F260541607AA02EA69AC137B19343E8E7D9EC4EAFB259D81A0FB6185</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\service\CaixaService.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="8">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">1FEA70CC881E4397B266514A65430A23209FF458EF344F4D481BD746AFD24953</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\service\CompraService.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="9">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">D5F53E4D2A8374939F1DEA2BD70B1FE4D7AEE7D6D3B890545377C71968FE9448</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\service\DashboardService.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="10">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">7889AE5F98B6814780D4ED9AED81B96751021F054EB2AFD0280B0315BB4A1598</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\service\InsumoService.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="11">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">D3442FC0EEF4F2ACE42C6317898769103F4247CAC01F6870CA31EF120A2575AC</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\service\RelatorioService.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="12">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">C653BEF61048BD003555B916944A04F9C6D8D026FA255521A29FC98ACAFFF9B8</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\service\RemessaService.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="13">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">8C427591E9D7F4EA01AEBD05269F80A6519D4D64A85B6AA3657CE5E7C802EB4D</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\service\TrufaService.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="14">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">979C2400D0D40131763211F88B1A58D4FD5CBABC4E8DB8A546AA7605F9FCCB6C</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\service\VendaService.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="15">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">11A1EECF9E7BB45D79E23E7DE63693F2BAE0CE9EA493A223EF38E7302ABE85CC</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\model\compra\Compra.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="16">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">267EDC43EBBD7A5E4B91BE29B754D39A1C30DEEFFA343D824B0605B5C855EBE7</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\model\compra\ItemCompra.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="17">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">B8FBD29429294CE1AAD0574D8DC92814224F1A2271362E49D6ABE55F89021F36</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\model\dashboard\ResumoDashboard.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="18">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">D5206F2F5402B77D7F37BFE0F17BE8021ABA4695C416605E9542765BE5B0B6F0</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\model\financeiro\MovimentacaoCaixa.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="19">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">8B34134D94CE760EA6BD167B3CB8FCC531065AF8C1D1CC68DE5916BE73AA5988</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\model\producao\Insumo.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="20">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">2336F3FED7B4541563E657388AB45E943B16838B6851E3E747F44614CA351C30</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\model\producao\ItemReceita.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="21">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">899D1115B8D4B8D4E73A3AB21C0BD25E09A6A28008C60D4CA65495B7DE229784</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\model\producao\Remessa.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="22">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">F04D6F99BE2B50360E3DC45A493D2C58D8C2C480541B907E540094FC141BBF34</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\model\producao\Trufa.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="23">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">89D41DB69F70906E522093EC0F471E4AC4D610289E93BD59832309FB45583A8A</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\model\vendas\ItemVenda.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="24">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">AECF4631FBC3BDA0F134F03752645080CD9BE47D294FEC648E08FC0B38C293BD</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\model\vendas\Venda.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="25">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">E5DE048088C605DEF1D8C792DCD1C4E82A72C9DF9E7C62502834E35B102E340E</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\database\Database.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="26">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">C818FE3EA177EC67277C0EBBEB5299C074AA0A1EACBA2692D0AD9E6857C6A2F9</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\view\principal\FrmPrincipal.java</S>
+    </Props>
+  </Obj>
+  <Obj RefId="27">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">07D76D231439044A313FEB10C51DA972648B66145A17A2AC285E14B72AFF4EDB</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\view\insumo\FrmInsumo.form</S>
+    </Props>
+  </Obj>
+  <Obj RefId="28">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">E4A0C750A5465FA9B738454AD0863D2237B1FBE8479F2EFDAAB903541F726B7D</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\src\main\java\view\compra\FrmCompra.form</S>
+    </Props>
+  </Obj>
+  <Obj RefId="29">
+    <TNRef RefId="0" />
+    <ToString>Microsoft.PowerShell.Commands.FileHashInfo</ToString>
+    <Props>
+      <S N="Algorithm">SHA256</S>
+      <S N="Hash">C11FDB92A053D4BBC72B8DB4F41C39E78895D2E81A611A30CA7A16349854756F</S>
+      <S N="Path">C:\Users\Admin\OneDrive\Desktop\Andrey\ChocoFlow\trufas.db</S>
+    </Props>
+  </Obj>
+</Objs>

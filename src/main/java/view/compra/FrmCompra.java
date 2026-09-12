@@ -73,7 +73,7 @@ public class FrmCompra extends javax.swing.JFrame {
             }
         } catch (Exception erro) {
             erro.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro para carregar insumo no comboBox" + erro);
+            JOptionPane.showMessageDialog(this, "Não foi possível carregar os insumos. Verifique o banco de dados.");
         }
     }
     
@@ -120,10 +120,172 @@ public class FrmCompra extends javax.swing.JFrame {
     public FrmCompra() {
         initComponents();
         
-        definirDataAtual();
         carregarCalendario();
+        definirDataAtual();
         CarregarComboInsumos();
         CarreggarComboFormaPagamento();
+        configurarConsulta();
+        aplicarEstiloVisual();
+    }
+
+    private void aplicarEstiloVisual() {
+        // Mantém os campos de entrada diretamente no painel usado por LimparCampos.
+        util.EstiloUI.painel(jPanel2);
+        util.EstiloUI.colocar(jPanel2,util.EstiloUI.titulo("Dados da compra"),0,0,3,1,0);
+        util.EstiloUI.colocar(jPanel2,jLabel2,0,1,1,0.5,0);
+        util.EstiloUI.colocar(jPanel2,jLabel1,1,1,2,0.5,0);
+        painelDataCompra.setPreferredSize(new java.awt.Dimension(220,34));
+        util.EstiloUI.colocar(jPanel2,painelDataCompra,0,2,1,0.5,0);
+        util.EstiloUI.colocar(jPanel2,jComboBox1,1,2,2,0.5,0);
+        util.EstiloUI.colocar(jPanel2,util.EstiloUI.titulo("Adicionar item"),0,3,3,1,0);
+        util.EstiloUI.colocar(jPanel2,jLabel3,0,4,1,0.5,0);
+        util.EstiloUI.colocar(jPanel2,jLabel4,1,4,1,0.25,0);
+        util.EstiloUI.colocar(jPanel2,jLabel5,2,4,1,0.25,0);
+        util.EstiloUI.colocar(jPanel2,jcbxInsumo,0,5,1,0.5,0);
+        util.EstiloUI.colocar(jPanel2,txtQtd,1,5,1,0.25,0);
+        util.EstiloUI.colocar(jPanel2,txtValorPago,2,5,1,0.25,0);
+        util.EstiloUI.colocar(jPanel2,util.EstiloUI.acoes(btnAdicionarItem,btnRemoverItem),0,6,3,1,0);
+        util.EstiloUI.colocar(jPanel2,util.EstiloUI.titulo("Itens da compra"),0,7,3,1,0);
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(600,150));
+        jScrollPane2.setMinimumSize(new java.awt.Dimension(300,70));
+        util.EstiloUI.colocar(jPanel2,jScrollPane2,0,8,3,1,1);
+        jPanel4.removeAll();
+        jPanel4.setLayout(new java.awt.BorderLayout(20,0));
+        jPanel4.setBackground(util.EstiloUI.FUNDO);
+        jPanel4.setBorder(new javax.swing.border.EmptyBorder(8,16,8,16));
+        jLabel6.setText("Total da compra (R$)");
+        jLabel6.setFont(jLabel6.getFont().deriveFont(java.awt.Font.BOLD,15f));
+        jPanel4.add(jLabel6,java.awt.BorderLayout.WEST);
+        jPanel4.add(txtValorTotal,java.awt.BorderLayout.CENTER);
+        util.EstiloUI.colocar(jPanel2,jPanel4,0,9,3,1,0);
+        jPanel5.removeAll();
+        jPanel5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT,10,4));
+        jPanel5.setOpaque(false);
+        for(javax.swing.JButton botao:new javax.swing.JButton[]{btnNovoCompra,btnSalvarCompra,btnAlterarCompra,btnCancelarCompra,btnExcluir}) jPanel5.add(botao);
+        util.EstiloUI.colocar(jPanel2,jPanel5,0,10,3,1,0);
+
+        util.EstiloUI.painel(jPanel3);
+        util.EstiloUI.colocar(jPanel3,util.EstiloUI.titulo("Consulta de compras"),0,0,5,1,0);
+        util.EstiloUI.colocar(jPanel3,new javax.swing.JLabel("Consulte o histórico de compras por período."),0,1,5,1,0);
+        util.EstiloUI.colocar(jPanel3,jLabel8,0,2,1,0,0);
+        util.EstiloUI.colocar(jPanel3,txtDataInicial,1,2,1,0.5,0);
+        util.EstiloUI.colocar(jPanel3,jLabel9,2,2,1,0,0);
+        util.EstiloUI.colocar(jPanel3,txtDataFinal,3,2,1,0.5,0);
+        util.EstiloUI.colocar(jPanel3,btnConsultar,4,2,1,0,0);
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(600,280));
+        util.EstiloUI.colocar(jPanel3,jScrollPane1,0,3,5,1,1);
+        // Move os próprios botões já conectados aos eventos para junto do histórico.
+        jPanel1.setOpaque(false);
+        util.EstiloUI.colocar(jPanel3,jPanel1,0,4,5,1,0);
+        util.EstiloUI.janela(this,jTabbedPane1,"Compras");
+        util.EstiloUI.componentes(getContentPane());
+        util.EstiloUI.principal(btnSalvarCompra);
+        for(java.awt.Component componente:jPanel1.getComponents()) {
+            if(componente instanceof javax.swing.JButton botao && botao.getText().equals("Cancelar compra selecionada")) util.EstiloUI.destrutivo(botao);
+        }
+        util.EstiloUI.destrutivo(btnExcluir);
+        txtValorTotal.setFont(txtValorTotal.getFont().deriveFont(java.awt.Font.BOLD,26f));
+        txtValorTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        txtValorTotal.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+    }
+    private DefaultTableModel tabelaSomenteLeitura(String... colunas) {
+        return new DefaultTableModel(colunas, 0) {
+            @Override public boolean isCellEditable(int linha, int coluna) { return false; }
+        };
+    }
+
+    private void configurarConsulta() {
+        jTable1.setModel(tabelaSomenteLeitura("Código", "Data", "Valor total", "Status"));
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableItems.setModel(tabelaSomenteLeitura("Descrição", "Unidade de medida", "Quantidade", "Valor unitário", "Valor total"));
+        btnAlterarCompra.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        btnCancelarCompra.setText("Limpar cadastro");
+        jComboBox1.setEnabled(false);
+        jComboBox1.setToolTipText("Forma de pagamento ainda não é salva nesta versão.");
+        txtDataInicial.setToolTipText("dd/MM/aaaa; deixe em branco para consultar todas as datas");
+        txtDataFinal.setToolTipText(txtDataInicial.getToolTipText());
+        btnConsultar.addActionListener(e -> carregarCompras());
+        jTabbedPane1.addChangeListener(e -> {
+            if (jTabbedPane1.getSelectedComponent() == jPanel3) carregarCompras();
+        });
+        javax.swing.JButton verItens = new javax.swing.JButton("Ver itens da compra");
+        javax.swing.JButton cancelar = new javax.swing.JButton("Cancelar compra selecionada");
+        verItens.addActionListener(e -> mostrarItensCompra());
+        cancelar.addActionListener(e -> cancelarCompraSelecionada());
+        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+        jPanel1.add(verItens);
+        jPanel1.add(cancelar);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override public void mouseClicked(java.awt.event.MouseEvent e) {
+                if (e.getClickCount() == 2) mostrarItensCompra();
+            }
+        });
+        carregarCompras();
+    }
+
+    private LocalDate lerDataConsulta(String texto) {
+        texto = texto.trim();
+        if (texto.replace("/", "").isBlank()) return null;
+        try {
+            return LocalDate.parse(texto, java.time.format.DateTimeFormatter
+                    .ofPattern("dd/MM/uuuu").withResolverStyle(java.time.format.ResolverStyle.STRICT));
+        } catch (java.time.format.DateTimeParseException erro) {
+            throw new IllegalArgumentException("Informe uma data válida no formato dd/MM/aaaa.");
+        }
+    }
+
+    private void carregarCompras() {
+        try {
+            List<Compra> compras = service.consultarCompras(lerDataConsulta(txtDataInicial.getText()),
+                    lerDataConsulta(txtDataFinal.getText()));
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+            modelo.setRowCount(0);
+            for (Compra registro : compras) {
+                modelo.addRow(new Object[]{registro.getId(), registro.getDataCompra().format(
+                    java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    registro.getValorTotal(), registro.getStatus()});
+            }
+        } catch (Exception erro) { mostrarErro(erro); }
+    }
+
+    private int compraSelecionada() {
+        int linha = jTable1.getSelectedRow();
+        if (jTabbedPane1.getSelectedComponent() != jPanel3 || linha < 0)
+            throw new IllegalArgumentException("Selecione uma compra na aba Consulta.");
+        return ((Number) jTable1.getModel().getValueAt(jTable1.convertRowIndexToModel(linha), 0)).intValue();
+    }
+
+    private void mostrarItensCompra() {
+        try {
+            int id = compraSelecionada();
+            DefaultTableModel modelo = tabelaSomenteLeitura("Insumo", "Unidade", "Quantidade", "Valor unitário", "Total");
+            for (ItemCompra item : service.buscarItensPorCompra(id)) {
+                modelo.addRow(new Object[]{item.getInsumo().getDescricao(), item.getInsumo().getUnidademedida(),
+                    item.getQtd(), item.getValorUnitario(), item.getValorTotalItem()});
+            }
+            JOptionPane.showMessageDialog(this, new javax.swing.JScrollPane(new javax.swing.JTable(modelo)),
+                    "Itens da compra " + id, JOptionPane.PLAIN_MESSAGE);
+        } catch (Exception erro) { mostrarErro(erro); }
+    }
+
+    private void cancelarCompraSelecionada() {
+        try {
+            int id = compraSelecionada();
+            if (JOptionPane.showConfirmDialog(this, "Cancelar a compra " + id
+                    + "? O estoque de todos os itens será estornado. O histórico será preservado.",
+                    "Confirmar cancelamento", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) return;
+            service.cancelarCompra(id);
+            JOptionPane.showMessageDialog(this, "Compra cancelada com sucesso!");
+            carregarCompras();
+        } catch (Exception erro) { mostrarErro(erro); }
+    }
+
+    private void mostrarErro(Exception erro) {
+        erro.printStackTrace();
+        String mensagem = erro instanceof IllegalArgumentException || erro instanceof IllegalStateException
+                ? erro.getMessage() : "Não foi possível concluir a operação. Verifique o banco de dados.";
+        JOptionPane.showMessageDialog(this, mensagem, "Compras", JOptionPane.ERROR_MESSAGE);
     }
 
     /**
@@ -511,7 +673,7 @@ public class FrmCompra extends javax.swing.JFrame {
        try {
             Insumo insumoSelecionado = (Insumo) jcbxInsumo.getSelectedItem();
 
-            double quantidade = Double.parseDouble(txtQtd.getText());
+            double quantidade = Double.parseDouble(txtQtd.getText().trim().replace(",", "."));
             double valorTotalItem = Double.parseDouble(txtValorPago.getText().replace(",", "."));
             
             double valorUnitario = valorTotalItem / quantidade;
@@ -522,11 +684,12 @@ public class FrmCompra extends javax.swing.JFrame {
             item.setValorUnitario(valorUnitario);
             item.setValorTotalItem(valorTotalItem);
 
+            service.validarItemCompra(item);
             itensCompra.add(item);
             CarregarTabelaItens();
         } catch (Exception erro) {
             erro.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao adicionar item - Erro:" + erro);
+            JOptionPane.showMessageDialog(this, "Não foi possível adicionar o item. Verifique o insumo, a quantidade e o valor.");
         }
         
     }//GEN-LAST:event_btnAdicionarItemActionPerformed
@@ -535,7 +698,7 @@ public class FrmCompra extends javax.swing.JFrame {
         try {
             Object valorSelecionado = datePicker.getModel().getValue();
             
-            if(valorSelecionado == null  || itensCompra.isEmpty() || txtQtd.getText().isEmpty() || txtValorPago.getText().isEmpty()){
+            if(valorSelecionado == null || itensCompra.isEmpty()){
                 JOptionPane.showMessageDialog(this, "Certifique-se que todos os campos estão preenchidos!");
                 return;
             }
@@ -551,9 +714,10 @@ public class FrmCompra extends javax.swing.JFrame {
             service.registrarCompra(compra);
             JOptionPane.showMessageDialog(this, "Compra registrada com sucesso!");   
             limparTelaCompras();
+            carregarCompras();
         } catch (Exception erro) {
             erro.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro para regitsrar a compra - Erro:" + erro.getMessage());
+            mostrarErro(erro);
         }
     }//GEN-LAST:event_btnSalvarCompraActionPerformed
 
@@ -593,6 +757,7 @@ public class FrmCompra extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        database.Database.criarBanco();
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

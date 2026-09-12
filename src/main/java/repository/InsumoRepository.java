@@ -34,61 +34,76 @@ public class InsumoRepository {
         String sql = "INSERT INTO insumo (descricao, unidade_medida, estoque_minimo, ativo)"
                 + "values(?, ?, ?, ?)";
         
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, insumo.getDescricao());
-        stmt.setString(2, insumo.getUnidademedida().name());
-        stmt.setDouble(3, insumo.getEstoqueMin());
-        stmt.setBoolean(4, insumo.isAtivo());
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, insumo.getDescricao());
+            stmt.setString(2, insumo.getUnidademedida().name());
+            stmt.setDouble(3, insumo.getEstoqueMin());
+            stmt.setBoolean(4, insumo.isAtivo());
         
-        stmt.execute();
-        stmt.close();
+            stmt.execute();
+        }
     }
     
     public void AtualizarInsumo(Insumo insumo) throws SQLException{
-        String sql = "UPDATE insumo SET descricao=?, unidade_medida=?, estoque_minimo=? WHERE id=?";
+        String sql = "UPDATE insumo SET descricao=?, unidade_medida=?, estoque_minimo=? WHERE id=? AND ativo = 1";
         
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, insumo.getDescricao());
-        stmt.setString(2, insumo.getUnidademedida().name());
-        stmt.setDouble(3, insumo.getEstoqueMin());
-        stmt.setInt(4, insumo.getId());
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, insumo.getDescricao());
+            stmt.setString(2, insumo.getUnidademedida().name());
+            stmt.setDouble(3, insumo.getEstoqueMin());
+            stmt.setInt(4, insumo.getId());
         
-        stmt.executeUpdate();
-        stmt.close();
+            if (stmt.executeUpdate() != 1) throw new IllegalStateException("Insumo não encontrado ou já inativo.");
+        }
     }
     
     public void ExcluirInsumo(Insumo insumo) throws SQLException{
-        String sql = "UPDATE insumo SET ativo=? WHERE id=? ";
+        String sql = "UPDATE insumo SET ativo=? WHERE id=? AND ativo = 1";
         
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setBoolean(1, insumo.isAtivo());
-        stmt.setInt(2, insumo.getId());
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setBoolean(1, insumo.isAtivo());
+            stmt.setInt(2, insumo.getId());
         
-        stmt.executeUpdate();
-        stmt.close();
+            if (stmt.executeUpdate() != 1) throw new IllegalStateException("Insumo não encontrado ou já inativo.");
+        }
     }
     
-    public List<Insumo> ListarInsumos() throws Exception{
+    public List<Insumo> ListarInsumos() throws SQLException {
+        return ListarInsumos("");
+    }
+
+    public List<Insumo> ListarInsumos(String descricao) throws SQLException {
         List<Insumo> lista = new ArrayList<>();
-        String sql = "SELECT * FROM insumo WHERE ativo =1";
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        
-        ResultSet rs = stmt.executeQuery();
-        
-        while(rs.next()){
-            Insumo insumo = new Insumo();
-            insumo.setId(rs.getInt("id"));
-            insumo.setDescricao(rs.getString("descricao"));
-            insumo.setUnidademedida(UnidadeMedida.valueOf(rs.getString("unidade_medida")));
-            insumo.setQtdEstoque(Double.parseDouble(rs.getString("quantidade_estoque")));
-            insumo.setEstoqueMin(Double.parseDouble(rs.getString("estoque_minimo")));
-            insumo.setValorUltimaCompra(Double.parseDouble(rs.getString("valor_ultima_compra")));
-            
-            lista.add(insumo);
+        String sql = "SELECT * FROM insumo WHERE ativo = 1 AND descricao LIKE ? ESCAPE '!' ORDER BY descricao COLLATE NOCASE, id";
+        // Pesquisa literal: %, _ e ! digitados não viram curingas SQL.
+        String filtro = descricao.replace("!", "!!").replace("%", "!%").replace("_", "!_");
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, "%" + filtro + "%");
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) lista.add(lerInsumo(rs));
+            }
         }
-        rs.close();
-        stmt.close();        
         return lista;
-    }    
-    
+    }
+
+    public Insumo buscarPorId(int id) throws SQLException {
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM insumo WHERE id = ? AND ativo = 1")) {
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next() ? lerInsumo(rs) : null;
+            }
+        }
+    }
+
+    private Insumo lerInsumo(ResultSet rs) throws SQLException {
+        Insumo insumo = new Insumo();
+        insumo.setId(rs.getInt("id"));
+        insumo.setDescricao(rs.getString("descricao"));
+        insumo.setUnidademedida(UnidadeMedida.valueOf(rs.getString("unidade_medida")));
+        insumo.setQtdEstoque(rs.getDouble("quantidade_estoque"));
+        insumo.setEstoqueMin(rs.getDouble("estoque_minimo"));
+        insumo.setValorUltimaCompra(rs.getDouble("valor_ultima_compra"));
+        insumo.setAtivo(rs.getBoolean("ativo"));
+        return insumo;
+    }
 }

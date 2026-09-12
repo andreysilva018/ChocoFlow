@@ -21,6 +21,7 @@ public class FrmInsumo extends javax.swing.JFrame {
     
     LimparTela limpar = new LimparTela();
     InsumoService service = new InsumoService();
+    private final javax.swing.JLabel lblResultadoConsulta = new javax.swing.JLabel(" ");
     
     public void AtivarCampos(){
         txtDescricao.setEnabled(true);
@@ -35,8 +36,7 @@ public class FrmInsumo extends javax.swing.JFrame {
         }
     }
     public void CarregarInsumos() throws Exception{ 
-        InsumoService service = new InsumoService();
-        List<Insumo> listaInsumos = service.ListarInsumos();
+        List<Insumo> listaInsumos = service.ListarInsumos(txtConsultarDescricao.getText());
         DefaultTableModel dados = (DefaultTableModel) jTableInsumos.getModel();
         dados.setNumRows(0);
         
@@ -50,16 +50,117 @@ public class FrmInsumo extends javax.swing.JFrame {
                 insumo.getValorUltimaCompra()
             });
         }
+        lblResultadoConsulta.setText(listaInsumos.isEmpty() ? "Nenhum insumo encontrado."
+                : listaInsumos.size() + " insumo(s) encontrado(s).");
     }
 
+    private void atualizarConsulta() {
+        try {
+            CarregarInsumos();
+        } catch (Exception erro) {
+            ((DefaultTableModel) jTableInsumos.getModel()).setRowCount(0);
+            lblResultadoConsulta.setText("Não foi possível atualizar. Clique em Consultar para tentar novamente.");
+            erro.printStackTrace();
+        }
+    }
+
+    private void limparPesquisa() {
+        txtConsultarDescricao.setText("");
+        atualizarConsulta();
+        txtConsultarDescricao.requestFocusInWindow();
+    }
+
+    private void configurarConsulta() {
+        txtCodigo.setEditable(false);
+        txtQtdEstoque.setEditable(false);
+        txtValorCompra.setEditable(false);
+        jTableInsumos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableInsumos.getColumnModel().getColumn(5).setHeaderValue("Valor da última compra");
+        jTableInsumos.getColumnModel().getColumn(5).setCellRenderer(new javax.swing.table.DefaultTableCellRenderer() {
+            private final java.text.NumberFormat moeda = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.forLanguageTag("pt-BR"));
+            @Override protected void setValue(Object valor) {
+                setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+                setText(valor instanceof Number ? moeda.format(valor) : "");
+            }
+        });
+        btnConsultar.addActionListener(e -> atualizarConsulta());
+        txtConsultarDescricao.addActionListener(e -> atualizarConsulta());
+        javax.swing.JButton btnLimparPesquisa = new javax.swing.JButton("Limpar pesquisa");
+        btnLimparPesquisa.addActionListener(e -> limparPesquisa());
+        // Apenas o painel de ações recebe componentes fora do código gerado.
+        jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 12, 19));
+        jPanel4.add(btnNovoConsulta);
+        jPanel4.add(btnLimparPesquisa);
+        jPanel4.add(lblResultadoConsulta);
+        jTabbedPane1.addChangeListener(e -> {
+            if (jTabbedPane1.getSelectedIndex() == 1) atualizarConsulta();
+        });
+    }
+
+    private void limparCadastro() {
+        limpar.LimparCampos(jPanel2);
+        btnSalvar.setText("Salvar");
+    }
+
+    private void mostrarErro(Exception erro) {
+        erro.printStackTrace();
+        String mensagem = erro instanceof NumberFormatException ? "Informe um número válido nos campos numéricos."
+                : erro instanceof IllegalArgumentException || erro instanceof IllegalStateException ? erro.getMessage()
+                : "Não foi possível concluir a operação. Verifique o banco de dados e tente novamente.";
+        JOptionPane.showMessageDialog(this, mensagem, "Insumos", JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void aplicarEstiloVisual() {
+        // Os campos permanecem filhos diretos de jPanel2 para preservar LimparCampos.
+        util.EstiloUI.painel(jPanel2);
+        util.EstiloUI.colocar(jPanel2, util.EstiloUI.titulo("Cadastro de insumo"),0,0,2,1,0);
+        util.EstiloUI.colocar(jPanel2, new javax.swing.JLabel("Cadastre e mantenha os dados do insumo."),0,1,2,1,0);
+        util.EstiloUI.colocar(jPanel2,jLabel4,0,2,1,0.7,0);
+        util.EstiloUI.colocar(jPanel2,txtCodigo,0,3,1,0.7,0);
+        util.EstiloUI.colocar(jPanel2,lblDescricao,0,4,1,0.7,0);
+        util.EstiloUI.colocar(jPanel2,jLabel2,1,4,1,0.3,0);
+        util.EstiloUI.colocar(jPanel2,txtDescricao,0,5,1,0.7,0);
+        util.EstiloUI.colocar(jPanel2,cbxUnidade,1,5,1,0.3,0);
+        util.EstiloUI.colocar(jPanel2,jLabel3,0,6,1,0.7,0);
+        util.EstiloUI.colocar(jPanel2,jLabel5,1,6,1,0.3,0);
+        util.EstiloUI.colocar(jPanel2,txtEstoqueMin,0,7,1,0.7,0);
+        util.EstiloUI.colocar(jPanel2,txtQtdEstoque,1,7,1,0.3,0);
+        util.EstiloUI.colocar(jPanel2,jLabel6,0,8,2,1,0);
+        util.EstiloUI.colocar(jPanel2,txtValorCompra,0,9,1,0.7,0);
+        util.EstiloUI.colocar(jPanel2,lblMensagem,0,10,2,1,0);
+        jPanel3.removeAll();
+        jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT,10,4));
+        jPanel3.setOpaque(false);
+        for(javax.swing.JButton botao:new javax.swing.JButton[]{btnNovo,btnSalvar,btnAlterar,btnExcluir,btnCancelar}) jPanel3.add(botao);
+        util.EstiloUI.colocar(jPanel2,jPanel3,0,11,2,1,0);
+        javax.swing.JPanel espaco=new javax.swing.JPanel(); espaco.setOpaque(false);
+        util.EstiloUI.colocar(jPanel2,espaco,0,12,2,1,1);
+
+        util.EstiloUI.painel(jPanel1);
+        util.EstiloUI.colocar(jPanel1,util.EstiloUI.titulo("Consulta de insumos"),0,0,2,1,0);
+        util.EstiloUI.colocar(jPanel1,new javax.swing.JLabel("Localize os insumos cadastrados e acompanhe o estoque."),0,1,2,1,0);
+        util.EstiloUI.colocar(jPanel1,jLabel1,0,2,2,1,0);
+        util.EstiloUI.colocar(jPanel1,txtConsultarDescricao,0,3,1,1,0);
+        util.EstiloUI.colocar(jPanel1,btnConsultar,1,3,1,0,0);
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(600,240));
+        util.EstiloUI.colocar(jPanel1,jScrollPane1,0,4,2,1,1);
+        jPanel4.setOpaque(false);
+        util.EstiloUI.colocar(jPanel1,jPanel4,0,5,2,1,0);
+        util.EstiloUI.janela(this,jTabbedPane1,"Insumos");
+        util.EstiloUI.componentes(getContentPane());
+        util.EstiloUI.principal(btnSalvar);
+        util.EstiloUI.destrutivo(btnExcluir);
+    }
     /**
      * Creates new form FrmConsultaInsumo
      */
     public FrmInsumo() {
         try {
             initComponents();
-            CarregarInsumos();
-            carregarComboUnidadeMedida();            
+            carregarComboUnidadeMedida();
+            configurarConsulta();
+            aplicarEstiloVisual();
+            atualizarConsulta();
         } catch (Exception erro) {
             erro.printStackTrace();
         }
@@ -417,17 +518,21 @@ public class FrmInsumo extends javax.swing.JFrame {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         AtivarCampos();
         
-        limpar.LimparCampos(jPanel2);
+        limparCadastro();
         lblMensagem.setText("Cadastre seu insumo!");
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        limpar.LimparCampos(jPanel2);
+        limparCadastro();
         
         JOptionPane.showMessageDialog(null, "Cadastro de insumo cancelado!");
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        if (!txtCodigo.getText().isBlank()) {
+            btnAlterarActionPerformed(evt);
+            return;
+        }
         try {
             if(txtDescricao.getText().isEmpty() || txtEstoqueMin.getText().isEmpty() || cbxUnidade.getSelectedItem() == null ){
                 JOptionPane.showMessageDialog(null, "Certifique-se que todos os campos estão preenchidos!");
@@ -435,79 +540,83 @@ public class FrmInsumo extends javax.swing.JFrame {
                 String descricao = txtDescricao.getText();
                 String unidadeSelecionada = cbxUnidade.getSelectedItem().toString();
                 UnidadeMedida unidade = UnidadeMedida.valueOf(unidadeSelecionada);
-                double estoqueMin = Double.parseDouble(txtEstoqueMin.getText());
+                double estoqueMin = Double.parseDouble(txtEstoqueMin.getText().trim().replace(",", "."));
                 
                 service.cadastrarInsumo(descricao, unidade, estoqueMin);
                 
                 JOptionPane.showMessageDialog(null, "Insumo cadastrado com sucesso!");
-                limpar.LimparCampos(jPanel2);
+                limparCadastro();
+                atualizarConsulta();
             }
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null, "Erro para cadastrar o inusmo - Erro:" + erro);
-            erro.printStackTrace();
+            mostrarErro(erro);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnNovoConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoConsultaActionPerformed
-        // TODO add your handling code here:
+        btnNovoActionPerformed(evt);
+        jTabbedPane1.setSelectedIndex(0);
     }//GEN-LAST:event_btnNovoConsultaActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        try {
-            CarregarInsumos();
-        } catch (Exception erro) {
-            erro.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro para carregar tabela de insumos - Erro:" + erro);
-        }
+        if (jTabbedPane1.getSelectedIndex() == 1) atualizarConsulta();
     }//GEN-LAST:event_formWindowActivated
 
     private void jTableInsumosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableInsumosMouseClicked
-        if(evt.getClickCount() >= 2){
-            jTabbedPane1.setSelectedIndex(0);
-            
-            txtCodigo.setText(jTableInsumos.getValueAt(jTableInsumos.getSelectedRow(), 0).toString());
-            txtDescricao.setText(jTableInsumos.getValueAt(jTableInsumos.getSelectedRow(), 1).toString());
-            cbxUnidade.setSelectedItem(jTableInsumos.getValueAt(jTableInsumos.getSelectedRow(), 2).toString());
-            txtQtdEstoque.setText(jTableInsumos.getValueAt(jTableInsumos.getSelectedRow(), 3).toString());
-            txtEstoqueMin.setText(jTableInsumos.getValueAt(jTableInsumos.getSelectedRow(), 4).toString());
-            txtValorCompra.setText(jTableInsumos.getValueAt(jTableInsumos.getSelectedRow(), 5).toString());
+        if (evt.getClickCount() != 2 || !javax.swing.SwingUtilities.isLeftMouseButton(evt)) return;
+        int linha = jTableInsumos.rowAtPoint(evt.getPoint());
+        if (linha < 0) return;
+        try {
+            int linhaModelo = jTableInsumos.convertRowIndexToModel(linha);
+            int id = ((Number) jTableInsumos.getModel().getValueAt(linhaModelo, 0)).intValue();
+            Insumo insumo = service.buscarPorId(id);
+            txtCodigo.setText(String.valueOf(insumo.getId()));
+            txtDescricao.setText(insumo.getDescricao());
+            cbxUnidade.setSelectedItem(insumo.getUnidademedida());
+            txtQtdEstoque.setText(String.valueOf(insumo.getQtdEstoque()));
+            txtEstoqueMin.setText(String.valueOf(insumo.getEstoqueMin()));
+            txtValorCompra.setText(String.valueOf(insumo.getValorUltimaCompra()));
             AtivarCampos();
-            if(!txtCodigo.getText().isEmpty()){
-                btnSalvar.setText("Alterar");
-            }
+            btnSalvar.setText("Alterar");
+            jTabbedPane1.setSelectedIndex(0);
+        } catch (Exception erro) {
+            mostrarErro(erro);
+            atualizarConsulta();
         }
     }//GEN-LAST:event_jTableInsumosMouseClicked
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         try {
+            if (txtCodigo.getText().isBlank()) throw new IllegalArgumentException("Selecione um insumo na aba Consulta.");
             int id = Integer.parseInt(txtCodigo.getText());            
             service.excluirInsumo(id);
             JOptionPane.showMessageDialog(null, "Insumo excluido com sucesso!");
-            limpar.LimparCampos(jPanel2);
+            limparCadastro();
+            atualizarConsulta();
         } catch (Exception erro) {
-            erro.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro para excluir insumo - Erro:" + erro);
+            mostrarErro(erro);
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         try {
+            if (txtCodigo.getText().isBlank()) throw new IllegalArgumentException("Selecione um insumo na aba Consulta.");
             if(txtDescricao.getText().isEmpty() || txtEstoqueMin.getText().isEmpty() || cbxUnidade.getSelectedItem() == null ){
                 JOptionPane.showMessageDialog(null, "Certifique que todos os campos estão preenchidos!");
             } else {
                 String descricao = txtDescricao.getText();
                 String unidadeSelecionada = cbxUnidade.getSelectedItem().toString();
                 UnidadeMedida unidade = UnidadeMedida.valueOf(unidadeSelecionada);
-                double estoqueMin = Double.parseDouble(txtEstoqueMin.getText());
+                double estoqueMin = Double.parseDouble(txtEstoqueMin.getText().trim().replace(",", "."));
                 
-                service.editarInsumo(descricao, unidade, estoqueMin);
+                service.editarInsumo(Integer.parseInt(txtCodigo.getText()), descricao, unidade, estoqueMin);
                 
                 JOptionPane.showMessageDialog(null, "Cadastro de insumo alterado!");
-                limpar.LimparCampos(jPanel2);
+                limparCadastro();
+                atualizarConsulta();
             }
         } catch (Exception erro) {
-            erro.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro para alterar o cadastro do insumo - Erro:" + erro);
+            mostrarErro(erro);
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
@@ -515,6 +624,7 @@ public class FrmInsumo extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        database.Database.criarBanco();
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

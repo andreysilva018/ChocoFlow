@@ -31,7 +31,7 @@ public class Database {
                          id INTEGER PRIMARY KEY AUTOINCREMENT,
                          date_compra TEXT NOT NULL,
                          valor_total REAL NOT NULL,
-                         status BOOLEAN NOT NULL DEFAULT 1
+                         status TEXT NOT NULL DEFAULT 'ATIVA'
                 );
             """);
             stmt.execute("""
@@ -41,13 +41,24 @@ public class Database {
                          insumo_id INTEGER NOT NULL,
                          quantidade REAL NOT NULL,
                          valor_unitario REAL NOT NULL,
-                         valor_total_item REAQL NOT NULL,
-                         status TEXT NOT NULL DEFAULT 'ATIVA',
+                         valor_total_item REAL NOT NULL,
                          
                          FOREIGN KEY (compra_id) REFERENCES compra(id),
                          FOREIGN KEY (insumo_id) REFERENCES insumo(id)                         
                 );
             """);
+            boolean possuiStatus = false;
+            try (java.sql.ResultSet rs = stmt.executeQuery("PRAGMA table_info(compra)")) {
+                while (rs.next()) {
+                    if ("status".equalsIgnoreCase(rs.getString("name"))) possuiStatus = true;
+                }
+            }
+            if (!possuiStatus) {
+                stmt.executeUpdate("ALTER TABLE compra ADD COLUMN status TEXT NOT NULL DEFAULT 'ATIVA'");
+            }
+            // SQLite aceita texto na coluna BOOLEAN legada, sem recriar a tabela.
+            stmt.executeUpdate("UPDATE compra SET status = 'ATIVA' WHERE status = 1");
+            stmt.executeUpdate("UPDATE compra SET status = 'CANCELADA' WHERE status = 0");
         } catch (Exception erro) {
             System.out.println("Erro ao criar bacno de dados");
             erro.printStackTrace();

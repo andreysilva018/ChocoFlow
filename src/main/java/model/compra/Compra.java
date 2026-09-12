@@ -17,7 +17,7 @@ public class Compra {
     private LocalDate dataCompra;
     private double valorTotal;
     private List<ItemCompra> itens;
-    private StatusCompra status;
+    private StatusCompra status = StatusCompra.ATIVA;
 
     public Compra() {
     }
